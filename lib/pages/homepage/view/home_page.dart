@@ -17,10 +17,11 @@ class _HomePageState extends State<HomePage> {
   void didChangeDependencies()async {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    movieData=await MovieDetails().fetchMovies();
-    print("ggggggggggggggggggggggggg");
-    print(movieData);
-    print("dddddddddd");
+
+    movieData= await MovieDetails().fetchMovies();
+  setState(() {
+
+  });
 
   }
 
@@ -198,33 +199,48 @@ class _HomePageState extends State<HomePage> {
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemCount: 20,
+                  itemCount: movieData.length,
                   itemBuilder: (context,index){
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        height: 200,
+                        height: 220,
                         width: size.width*.4,
                         decoration: BoxDecoration(
                           color: Colors.teal,
                           borderRadius: BorderRadius.circular(10)
                         ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                            child: Image.network("${movieData[index].image}",fit: BoxFit.cover,)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: Container(
+                          width: 200,
+                          child: Text("${movieData[index].title}",
+                            style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text("${movieData}",
-                          style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
+                        child: Text("${movieData[index].year}",style: TextStyle(
+                          color: Colors.black.withOpacity(.4),
+                          fontSize: 18,
                         ),),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text("Release Date",style: TextStyle(
-                          color: Colors.black.withOpacity(.4),
+                        child: Text("Rating: ${movieData[index].rating}",style: TextStyle(
+                          color: Colors.black.withOpacity(.8),
                           fontSize: 18,
                         ),),
                       )

@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:tmdb_clone/model/movie_model.dart';
 import 'package:http/http.dart' as http;
 
 class MovieDetails {
+
   static const Map<String, String> defaultHeader = {
-    "Accept": "application/json",
+    "X-RapidAPI-Key":"1ab7d2f230mshcf76ade66fd0e68p1e5554jsn0d7fdcc4fc1f",
+     "Accept": "application/json",
+
   };
 
   Future<List<MovieModel>> fetchMovies() async {
@@ -13,24 +17,20 @@ class MovieDetails {
 
 
     try {
-      var link = "https://api.themoviedb.org/3/movie/550?api_key=ceb50715fd9e6acdaac3a23fc6f2e746";
+      var link = "https://imdb-top-100-movies.p.rapidapi.com/";
       var response =
       await http.get(Uri.parse(link), headers: await defaultHeader);
+      print("ppppppppppppp");
+
       if (response.statusCode == 200) {
-        print("status code");
-        print(response.statusCode);
-       // print(response.body);
          var data = jsonDecode(response.body);
 
-       var fromResponse=MovieModel.fromJson(data);
-        print(fromResponse);
-        // MovieModel movieModel;
-        // for (var i in fromResponse) {
-        //   movieModel = MovieModel.fromJson(i.);
-        //   movieData.add(movieModel);
-        // }
-        print("mmmmmmmmmmmmmmmmmmmmm");
-        print(movieData);
+        MovieModel movieModel;
+        for (var i in data) {
+          movieModel = MovieModel.fromJson(i);
+          movieData.add(movieModel);
+        }
+
         return movieData;
       } else {
         return movieData;
