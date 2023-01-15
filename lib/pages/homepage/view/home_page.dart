@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text("On TV",style: TextStyle(color: Colors.white),),
-                    Center(child: IconButton(onPressed: (){}, 
+                    Center(child: IconButton(onPressed: (){},
                         icon: Icon(Icons.arrow_drop_down,
                           size: 35,
                           color: Colors.white,)))
@@ -196,7 +196,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
             Container(
-              height: size.height*.4,
+              height: size.height*.45,
               width: double.infinity,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -207,55 +207,59 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(5.0),
                   child: InkWell(
                     onTap: (){
-                      Get.to(MovieInfoPage(selectedMovie: movieData[index]));
+                      Get.to(()=>MovieInfoPage(selectedMovie: movieData[index]));
                     },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 220,
-                          width: size.width*.4,
-                          decoration: BoxDecoration(
-                            color: Colors.teal,
-                            borderRadius: BorderRadius.circular(10)
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                              child: Image.network("${movieData[index].image}",fit: BoxFit.cover,)),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(1.0),
-                          child: Container(
-                            width: 150,
-                            child: Text("${movieData[index].title}",
-                              style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
+                    child: Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 220,
+                            width: size.width*.4,
+                            decoration: BoxDecoration(
+                              color: Colors.teal,
+                              borderRadius: BorderRadius.circular(10)
                             ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                                child: Image.network("${movieData[index].image}",fit: BoxFit.cover,)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(1.0),
+                            child: Container(
+                              width: 150,
+                              child: Text("${movieData[index].title}",
+                                style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
 
+                              ),
+                                maxLines: 3,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text("${movieData[index].year}",style: TextStyle(
-                            color: Colors.black.withOpacity(.4),
-                            fontSize: 18,
-                          ),),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text("Rating: ${movieData[index].rating}",style: TextStyle(
-                            color: Colors.black.withOpacity(.8),
-                            fontSize: 18,
-                          ),),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text("${movieData[index].year}",style: TextStyle(
+                              color: Colors.black.withOpacity(.4),
+                              fontSize: 18,
+                            ),),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text("Rating: ${movieData[index].rating}",style: TextStyle(
+                              color: Colors.black.withOpacity(.8),
+                              fontSize: 18,
+                            ),),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 );
               }),
-            )
+            ),
+
 
         ]
     )
